@@ -21,6 +21,7 @@
 		A87D62AD19B047F200AED464 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A87D628F19B047F200AED464 /* UIKit.framework */; };
 		A87D62B519B047F200AED464 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A87D62B319B047F200AED464 /* InfoPlist.strings */; };
 		A87D62B719B047F200AED464 /* sampleCalcTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A87D62B619B047F200AED464 /* sampleCalcTests.m */; };
+		A87D62C119B0485A00AED464 /* Buttons.plist in Resources */ = {isa = PBXBuildFile; fileRef = A87D62C019B0485A00AED464 /* Buttons.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		A87D62B219B047F200AED464 /* sampleCalcTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "sampleCalcTests-Info.plist"; sourceTree = "<group>"; };
 		A87D62B419B047F200AED464 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A87D62B619B047F200AED464 /* sampleCalcTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = sampleCalcTests.m; sourceTree = "<group>"; };
+		A87D62C019B0485A00AED464 /* Buttons.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Buttons.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 				A87D62A019B047F200AED464 /* ViewController.h */,
 				A87D62A119B047F200AED464 /* ViewController.m */,
 				A87D62A319B047F200AED464 /* Images.xcassets */,
+				A87D62C019B0485A00AED464 /* Buttons.plist */,
 				A87D629219B047F200AED464 /* Supporting Files */,
 			);
 			path = sampleCalc;
@@ -230,6 +233,7 @@
 			files = (
 				A87D62A419B047F200AED464 /* Images.xcassets in Resources */,
 				A87D629619B047F200AED464 /* InfoPlist.strings in Resources */,
+				A87D62C119B0485A00AED464 /* Buttons.plist in Resources */,
 				A87D629F19B047F200AED464 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
