@@ -9,6 +9,7 @@
 #import "ViewController.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet UILabel *shawCalc;
 
 @end
 
@@ -39,6 +40,8 @@
         NSString *str = [params objectForKey:@"text"];
         [btn setTitle:str forState:UIControlStateNormal];
         
+        // idをtagの項目にセットします。
+        btn.tag = [[params objectForKey:@"id"] integerValue];
         
         // 設定の中から"x", "y", "width", "height"項目の文字列を取り出して、
         // 数値（double型）に変換してボタンの位置と大きさをセットします。
@@ -65,6 +68,29 @@
 
     // ボタンが押されたら、ログに押されたボタンの文字列を表示します。
     NSLog(@"%@",btn.titleLabel.text);
+
+    //第４回追加分ここから
+    
+    // 押されたボタンにより処理を分岐します。
+    switch (btn.tag) {
+        case 0:     // 0〜9ボタン
+        case 1:
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        case 6:
+        case 7:
+        case 8:
+        case 9:
+            NSLog(@"数字ボタンが押されました");
+            self.shawCalc.text = [self.shawCalc.text stringByAppendingString:btn.titleLabel.text];
+        break;
+        default: // 上記以外
+            break;
+    }
+    //第４回追加分ここまで
+    
 }
 
 - (void)didReceiveMemoryWarning
