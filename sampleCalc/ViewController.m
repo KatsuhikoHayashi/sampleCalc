@@ -14,6 +14,8 @@
 @end
 
 @implementation ViewController
+NSInteger calcVal;  // 計算値（保存用）
+NSInteger calcCode; // 計算記号（保存用）
 
 - (void)viewDidLoad
 {
@@ -60,16 +62,20 @@
         
         // ここでようやくボタンを画面上に表示します。
         [self.view addSubview:btn];
+        
+        // 計算機の状態を初期化します。
+        [self initCalc];
+        
     }
 
 }
 
 -(void)btnTouchUpInside:(UIButton*)btn{
 
+    NSInteger val;  // 計算値の数字変換用
+    
     // ボタンが押されたら、ログに押されたボタンの文字列を表示します。
     NSLog(@"%@",btn.titleLabel.text);
-
-    //第４回追加分ここから
     
     // 押されたボタンにより処理を分岐します。
     switch (btn.tag) {
@@ -84,13 +90,50 @@
         case 8:
         case 9:
             NSLog(@"数字ボタンが押されました");
-            self.shawCalc.text = [self.shawCalc.text stringByAppendingString:btn.titleLabel.text];
-        break;
+            val = [self.shawCalc.text intValue] * 10 + [btn.titleLabel.text intValue];
+            self.shawCalc.text = [NSString stringWithFormat:@"%d", val];
+            break;
+
+        case 10:    // +、-、×、÷ボタン
+        case 11:
+        case 12:
+        case 13:
+            NSLog(@"記号ボタンが押されました");
+            calcVal = [self.shawCalc.text intValue];
+            calcCode = btn.tag;
+            break;
+            
+        case 14:
+            NSLog(@"=ボタンが押されました");
+            if(calcCode == 10){
+                NSLog(@"%d + %d", calcVal, [self.shawCalc.text intValue]);
+                val = calcVal + [self.shawCalc.text intValue];
+                self.shawCalc.text = [NSString stringWithFormat:@"%d", val];
+            }
+            break;
+        
+        case 15:
+            NSLog(@"Cボタンが押されました");
+            [self initCalc];
+            break;
+            
         default: // 上記以外
             break;
     }
-    //第４回追加分ここまで
+}
+
+- (void)initCalc{
+    self.shawCalc.text = @"0";
+    calcVal = 0;
     
+    // calcCode
+    // 0:まだわかんない
+    // 10:足し算するよ
+    // 11:引き算するよ
+    // 12:掛け算するよ
+    // 13:割り算するよ
+    calcCode = 0;
+
 }
 
 - (void)didReceiveMemoryWarning
