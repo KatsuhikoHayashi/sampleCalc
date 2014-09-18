@@ -16,6 +16,12 @@
 @implementation ViewController
 NSInteger calcVal;  // 計算値（保存用）
 NSInteger calcCode; // 計算記号（保存用）
+bool calcMode;      // 計算モード
+                    // 0:まだわかんない
+                    // 10:足し算するよ
+                    // 11:引き算するよ
+                    // 12:掛け算するよ
+                    // 13:割り算するよ
 
 - (void)viewDidLoad
 {
@@ -90,8 +96,13 @@ NSInteger calcCode; // 計算記号（保存用）
         case 8:
         case 9:
             NSLog(@"数字ボタンが押されました");
-            val = [self.shawCalc.text intValue] * 10 + [btn.titleLabel.text intValue];
-            self.shawCalc.text = [NSString stringWithFormat:@"%d", val];
+            if(calcMode == false){
+                self.shawCalc.text = btn.titleLabel.text;
+                calcMode = true;
+            }else{
+                val = [self.shawCalc.text intValue] * 10 + [btn.titleLabel.text intValue];
+                self.shawCalc.text = [NSString stringWithFormat:@"%d", val];
+            }
             break;
 
         case 10:    // +、-、×、÷ボタン
@@ -99,17 +110,18 @@ NSInteger calcCode; // 計算記号（保存用）
         case 12:
         case 13:
             NSLog(@"記号ボタンが押されました");
+            [self execCalc:calcCode];
             calcVal = [self.shawCalc.text intValue];
             calcCode = btn.tag;
+            calcMode = false;
             break;
             
         case 14:
             NSLog(@"=ボタンが押されました");
-            if(calcCode == 10){
-                NSLog(@"%d + %d", calcVal, [self.shawCalc.text intValue]);
-                val = calcVal + [self.shawCalc.text intValue];
-                self.shawCalc.text = [NSString stringWithFormat:@"%d", val];
-            }
+            [self execCalc:calcCode];
+            calcVal = 0;
+            calcCode = 0;
+            calcMode = false;
             break;
         
         case 15:
@@ -120,20 +132,51 @@ NSInteger calcCode; // 計算記号（保存用）
         default: // 上記以外
             break;
     }
+    NSLog(@"val:[%ld] code:[%d] mode:[%d]", (long)calcVal, calcCode, calcMode);
 }
 
 - (void)initCalc{
     self.shawCalc.text = @"0";
     calcVal = 0;
-    
-    // calcCode
-    // 0:まだわかんない
-    // 10:足し算するよ
-    // 11:引き算するよ
-    // 12:掛け算するよ
-    // 13:割り算するよ
     calcCode = 0;
+    calcMode = false;
 
+}
+
+- (void)execCalc:(NSInteger)code{
+   
+    NSInteger val;  // 計算値の数字変換用
+    
+    switch (code) {
+        case 0:     // 計算しない
+            val = [self.shawCalc.text intValue];
+            break;
+            
+        case 10:    // 足し算
+            NSLog(@"%d + %d", calcVal, [self.shawCalc.text intValue]);
+            val = calcVal + [self.shawCalc.text intValue];
+            break;
+            
+        case 11:    // 引き算
+            NSLog(@"%d - %d", calcVal, [self.shawCalc.text intValue]);
+            val = calcVal - [self.shawCalc.text intValue];
+            break;
+            
+        case 12:    // 掛け算
+            NSLog(@"%d × %d", calcVal, [self.shawCalc.text intValue]);
+            val = calcVal * [self.shawCalc.text intValue];
+            break;
+            
+        case 13:    // 割り算
+            NSLog(@"%d ÷ %d", calcVal, [self.shawCalc.text intValue]);
+            val = calcVal / [self.shawCalc.text intValue];
+            break;
+            
+        default:
+            break;
+    }
+    self.shawCalc.text = [NSString stringWithFormat:@"%d", val];
+    
 }
 
 - (void)didReceiveMemoryWarning
